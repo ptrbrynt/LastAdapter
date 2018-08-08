@@ -10,6 +10,6 @@ android {
 }
 
 dependencies {
-    implementation "com.android.support:recyclerview-v7:$versions.support"
+    implementation 'androidx.recyclerview:recyclerview:1.0.0-rc01'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin"
 }
