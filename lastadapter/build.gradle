@@ -13,5 +13,3 @@ dependencies {
     implementation "com.android.support:recyclerview-v7:$versions.support"
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin"
 }
-
-apply from: 'publish.gradle'

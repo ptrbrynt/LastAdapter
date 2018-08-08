@@ -32,7 +32,7 @@ class LastAdapter(private val list: List<Any>,
     constructor(list: List<Any>, variable: Int) : this(list, variable, false)
     constructor(list: List<Any>, stableIds: Boolean) : this(list, null, stableIds)
 
-    private val DATA_INVALIDATION = Any()
+    private val dataInvalidation = Any()
     private val callback = ObservableListCallback(this)
     private var recyclerView: RecyclerView? = null
     private var inflater: LayoutInflater? = null
@@ -88,17 +88,17 @@ class LastAdapter(private val list: List<Any>,
 
 
     override fun onCreateViewHolder(view: ViewGroup, viewType: Int): Holder<ViewDataBinding> {
-        val binding = DataBindingUtil.inflate<ViewDataBinding>(inflater, viewType, view, false)
+        val binding = DataBindingUtil.inflate<ViewDataBinding>(inflater!!, viewType, view, false)
         val holder = Holder(binding)
         binding.addOnRebindCallback(object : OnRebindCallback<ViewDataBinding>() {
             override fun onPreBind(binding: ViewDataBinding) = recyclerView?.isComputingLayout ?: false
             override fun onCanceled(binding: ViewDataBinding) {
-                if (recyclerView?.isComputingLayout ?: true) {
+                if (recyclerView?.isComputingLayout != false) {
                     return
                 }
                 val position = holder.adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
-                    notifyItemChanged(position, DATA_INVALIDATION)
+                    notifyItemChanged(position, dataInvalidation)
                 }
             }
         })
@@ -187,7 +187,7 @@ class LastAdapter(private val list: List<Any>,
             return false
         }
         payloads.forEach {
-            if (it != DATA_INVALIDATION) {
+            if (it != dataInvalidation) {
                 return false
             }
         }
