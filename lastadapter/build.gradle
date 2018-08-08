@@ -5,14 +5,13 @@ plugins {
 
 android {
     compileSdkVersion versions.sdkTarget
-    buildToolsVersion versions.buildTools
     defaultConfig.minSdkVersion versions.sdkMin
     dataBinding.enabled true
 }
 
 dependencies {
-    compile "com.android.support:recyclerview-v7:$versions.support"
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin"
+    implementation "com.android.support:recyclerview-v7:$versions.support"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin"
 }
 
 apply from: 'publish.gradle'
