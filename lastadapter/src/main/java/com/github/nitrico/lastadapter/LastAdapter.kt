@@ -28,9 +28,9 @@ class LastAdapter(private val list: List<Any>,
                   private val variable: Int? = null,
                   stableIds: Boolean = false) : RecyclerView.Adapter<Holder<ViewDataBinding>>() {
 
-    constructor(list: List<Any>) : this(list, null, false)
-    constructor(list: List<Any>, variable: Int) : this(list, variable, false)
-    constructor(list: List<Any>, stableIds: Boolean) : this(list, null, stableIds)
+    constructor(list: List<Any>): this(list, null, false)
+    constructor(list: List<Any>, variable: Int?): this(list, variable, false)
+    constructor(list: List<Any>, stableIds: Boolean): this(list, null, stableIds)
 
     private val dataInvalidation = Any()
     private val callback = ObservableListCallback(this)
@@ -138,15 +138,15 @@ class LastAdapter(private val list: List<Any>,
     }
 
     override fun getItemId(position: Int): Long {
-        if (hasStableIds()) {
+        return if (hasStableIds()) {
             val item = list[position]
             if (item is StableId) {
-                return item.stableId
+                item.stableId
             } else {
                 throw IllegalStateException("${item.javaClass.simpleName} must implement StableId interface.")
             }
         } else {
-            return super.getItemId(position)
+            super.getItemId(position)
         }
     }
 

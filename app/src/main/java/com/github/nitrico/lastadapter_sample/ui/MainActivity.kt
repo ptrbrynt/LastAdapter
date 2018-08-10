@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
     private val random = Random()
 
     private var randomPosition: Int = 0
-        get() = random.nextInt(Data.items.size-1)
+        get() = random.nextInt(Data.items.size - 1)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
             if (Data.items.isNotEmpty()) Data.items.removeAt(0)
         }
         R.id.removeLast -> consume {
-            if (Data.items.isNotEmpty()) Data.items.removeAt(Data.items.size-1)
+            if (Data.items.isNotEmpty()) Data.items.removeAt(Data.items.size - 1)
         }
         R.id.removeRandom -> consume {
             if (Data.items.isNotEmpty()) Data.items.removeAt(randomPosition)
@@ -57,9 +57,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     class ViewPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
-        override fun getCount() = 2
-        override fun getItem(i: Int) = if (i == 0) KotlinListFragment() else JavaListFragment()
-        override fun getPageTitle(i: Int) = if (i == 0) "Kotlin" else "Java"
+        override fun getCount() = 3
+        override fun getItem(i: Int) = when (i) {
+            0 -> KotlinListFragment()
+            1 -> JavaListFragment()
+            2 -> KotlinPagedListFragment()
+            else -> null
+        }
+
+        override fun getPageTitle(i: Int) = when (i) {
+            0 -> "Kotlin"
+            1 -> "Java"
+            2 -> "Kotlin Paged"
+            else -> null
+        }
     }
 
 }
